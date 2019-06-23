@@ -17,9 +17,16 @@ router.get("/add", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
-  const body = _.pick(req.body, ["email", "password"]);
+  const body = _.pick(req.body, [
+    "email",
+    "password",
+    "role",
+    "homeLat",
+    "homeLng",
+    "firstName",
+    "lastName"
+  ]);
   const user = new User(body);
-  console.log(req.body);
   user
     .save()
     .then(() => {
