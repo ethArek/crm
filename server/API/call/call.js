@@ -2,7 +2,7 @@ const router = require("express").Router();
 const _ = require("lodash");
 
 const { User } = require("../../models/user.js");
-const { mongoose } = require("../../db/mongoose.js");
+const { Call } = require("../../models/call.js");
 
 router.post("/register", (req, res) => {
   const body = _.pick(req.body, [
@@ -26,21 +26,21 @@ router.post("/register", (req, res) => {
     });
 });
 
-router.post("/login", async (req, res) => {
-  const body = _.pick(req.body, ["email", "password"]);
+router.post("/addCall", async (req, res) => {
   try {
-    const user = await User.findByCredentials(body.email, body.password);
-    const token = await user.generateAuthToken();
-    const result = {
-      userId: user._id,
-      token: token,
-      email: user.email
-    };
-    res.json(result);
+    const body = _.pick(req.body, ["assistantId", "resultId", "dateStart"]);
+
+    const call = new Call(body);
+    await call.save();
+    res.json({ success: true });
   } catch (err) {
-    console.log(err);
-    res.status(401).json({ error: err });
+    res.status(500).json({ success: false });
   }
+});
+
+router.get("/getCalls", async (req, res) => {
+  const calls = await Call.find();
+  res.json(calls);
 });
 
 module.exports = router;
