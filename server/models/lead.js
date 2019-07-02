@@ -11,16 +11,19 @@ const LeadSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  statusId: {
-    type: ObjectId,
-    required: true
+  status: {
+    type: String
   },
   phoneNumber: {
+    type: String,
+    required: true
+  },
+  address: {
     type: String,
     required: true
   }
 });
 
-const Lead = mongoose.model("matches", LeadSchema);
+const Lead = mongoose.model("lead", LeadSchema);
 
 module.exports = { Lead };

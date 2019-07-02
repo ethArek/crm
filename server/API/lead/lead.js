@@ -4,12 +4,18 @@ const _ = require("lodash");
 const { User } = require("../../models/user.js");
 const { Lead } = require("../../models/lead.js");
 
-router.post("/addCall", async (req, res) => {
+router.post("/addLead", async (req, res) => {
   try {
-    const body = _.pick(req.body, ["assistantId", "resultId", "dateStart"]);
+    const body = _.pick(req.body, [
+      "firstName",
+      "lastName",
+      "address",
+      "phoneNumber",
+      "status"
+    ]);
 
-    const call = new Call(body);
-    await call.save();
+    const lead = new Lead(body);
+    await lead.save();
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ success: false });
