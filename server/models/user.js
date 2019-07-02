@@ -76,8 +76,8 @@ UserSchema.pre("save", function(next) {
 UserSchema.methods.toJSON = function() {
   const user = this;
   const userObject = user.toObject();
-
-  return _.pick(userObject, ["_id", "email"]);
+  console.log(userObject.role);
+  return _.pick(userObject, ["_id", "email", "role"]);
 };
 
 UserSchema.statics.findByCredentials = async function(email, password) {

@@ -8,23 +8,17 @@ const CallSchema = new mongoose.Schema({
     required: true
   },
   resultId: {
-    type: ObjectId,
-    required: true
+    type: String
   },
   leadId: {
-    type: ObjectId,
-    required: true
+    type: ObjectId
   },
-  dateStart: {
-    type: Date,
-    required: true
-  },
-  dateEnd: {
+  date: {
     type: Date,
     default: new Date()
   }
 });
 
-const Call = mongoose.model("matches", CallSchema);
+const Call = mongoose.model("call", CallSchema);
 
 module.exports = { Call };
