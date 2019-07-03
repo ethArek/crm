@@ -27,4 +27,9 @@ router.get("/getLeads", async (req, res) => {
   res.json(leads);
 });
 
+router.get("/:leadId/getLead", async (req, res) => {
+  const lead = await Lead.findById(req.params.leadId);
+  res.json(lead);
+});
+
 module.exports = router;
